@@ -10,6 +10,10 @@ import "firebase/auth";
 import "firebase/storage";
 import "firebase/database";
 import "firebase/firestore";
+import "firebase/analytics";
+import "firebase/functions";
+import "firebase/messaging";
+import "firebase/remote-config";
 
 if (!firebase.apps.length) {
   firebase.initializeApp(config);
@@ -19,6 +23,10 @@ export const auth = firebase.auth();
 export const storage = firebase.storage();
 export const database = firebase.database();
 export const firestore = firebase.firestore();
+export const analytics = firebase.analytics();
+export const functions = firebase.functions();
+export const messaging = firebase.messaging();
+export const remoteConfig = firebase.remoteConfig();
 export default firebase;
 //==========================================================//
 
