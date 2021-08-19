@@ -65,6 +65,10 @@
     - [x] pagination
 - [x] Functions
   - [x] Https callable
+- [x] React hooks
+  - [x] useAuthState
+  - [x] useFirebaseStorage
+  - [x] useGetFirestoreDoc
 - [x] Initialization
 - [x] Messaging
   - [x] Get a registration token
@@ -91,18 +95,18 @@
 
 #### Get/read a single Firestore document
 
-![Comparison example](comparison-example.png)
+![Comparison example](screenshots/comparison-example.png)
 
 ### Additional examples from Twitter
 
 #### [Part 1 - Initialization, imports and exports](https://twitter.com/KlutchDev/status/1423835443628584960)
 
-![Part 1](screenshot-part1.png)
+![Part 1](screenshots/screenshot-part1.png)
 
 #### [Part 2 - Basic auth features](https://twitter.com/KlutchDev/status/1423957300772065287)
 
-![Part 2](screenshot-part2.png)
+![Part 2](screenshots/screenshot-part2.png)
 
 #### [Part 3.1 - Get/read a single Firestore doc](twitter.com/KlutchDev/status/1427435257993834503)
 
-![Part 3.1](screenshot-part3-1.png)
+![Part 3.1](screenshots/screenshot-part3-1.png)
