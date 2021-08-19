@@ -35,7 +35,7 @@ analytics.logEvent(eventName.SELECT_PROMOTION, params12); // Promotion selected
    VERSION 9 (beta)
 //===================================================================*/
 import { analytics } from "./init-firebase";
-import { logEvent } from "firebase/analytics";
+import { logEvent, setUserProperties } from "firebase/analytics";
 
 // Log an event
 const logAnalyticsEvent = (logEvent, type, id, name) => {

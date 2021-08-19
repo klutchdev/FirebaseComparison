@@ -1,6 +1,6 @@
 ## Firebase feature comparison (v8 to v9)
 
-> Last updated: 8/19/2021 at 12:26am
+> Last updated: 8/19/2021 at 2:28am
 
 ### Follow me on Twitter [@klutchdev](https://twitter.com/klutchdev)
 
@@ -15,20 +15,25 @@
 - [x] Authentication
   - [x] Sign in
     - [x] Email and password
-    - [x] Email link
-    - [x] Phone
-    - [x] Google
-    - [x] Facebook
-    - [x] Apple
-    - [x] Twitter
-    - [x] Github
-    - [x] Microsoft
-    - [x] Yahoo
+    - [x] "Magic" email link
+    - [x] Phone number
+    - [x] Anonymous
+    - [x] Providers
+      - [x] Google
+      - [x] Facebook
+      - [x] Apple
+      - [x] Twitter
+      - [x] Github
+      - [x] Microsoft
+      - [x] Yahoo
   - [x] Sign out
   - [x] Auth state listener
-  - [x] Update/delete a user
+  - [x] Update user
+  - [x] Delete user
   - [x] Verify email
+  - [x] Set email
   - [x] Reset password
+  - [x] Set password
 - [x] Config
 - [x] Firestore
   - [x] Add/set a document
@@ -43,21 +48,44 @@
   - [x] Array union
   - [x] Array remove
   - [x] Increment
-  - [x] Batch read/write/delete
+  - [x] Batch operations
+    - [x] Write
+    - [x] Set
+    - [x] Update
+    - [x] Delete
+    - [x] Commit
+  - [x] Queries
+    - [x] where
+    - [x] orderBy
+    - [x] limit
+    - [x] array-contains
+    - [x] startAt
+    - [x] endAt
+    - [x] query cursors
+    - [x] pagination
 - [x] Functions
-  - [x] Callable functions
+  - [x] Https callable
 - [x] Initialization
 - [x] Messaging
   - [x] Get a registration token
   - [x] Foreground message
   - [x] Background message
 - [ ] Realtime database (80% completed)
-  - [x] Write data
-  - [x] Read data
-  - [x] Read data once
-  - [ ] Update data (coming soon)
-  - [ ] Delete data (coming soon)
-- [ ] Storage (coming soon)
+  - [x] Write
+  - [x] Read
+  - [x] Read once
+  - [ ] Update
+  - [ ] Remove
+- [ ] Storage
+  - [ ] Reference
+  - [ ] Upload
+    - [ ] Blob/file
+    - [ ] Byte array
+    - [ ] String
+  - [ ] Tasks
+  - [ ] Download
+  - [ ] Delete
+  - [ ] List
 
 ### Quick example
 

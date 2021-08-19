@@ -13,7 +13,6 @@ import "firebase/firestore";
 import "firebase/analytics";
 import "firebase/functions";
 import "firebase/messaging";
-import "firebase/remote-config";
 
 if (!firebase.apps.length) {
   firebase.initializeApp(config);
@@ -41,7 +40,6 @@ import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 import { getFunctions } from "firebase/functions";
 import { getMessaging } from "firebase/messaging";
-import { getRemoteConfig } from "firebase/remote-config";
 
 const firebaseApp = initializeApp(config);
 

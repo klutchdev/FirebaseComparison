@@ -103,6 +103,95 @@ const commitBatch = async () => {
   });
 };
 
+// Get/read a document once
+const getDocData = async (docRef) => {
+  await docRef.get().then((doc) => {
+    if (doc.exists) {
+      console.log("Document data:", doc.data());
+    }
+  });
+};
+
+// Get/read documents in a collection once
+const getCollectionDocs = async (collectionRef) => {
+  await collectionRef.get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      console.log(data);
+    });
+  });
+};
+
+// Listen for document changes
+const docListener = (docRef) => {
+  docRef.onSnapshot((doc) => {
+    const data = doc.data();
+    console.log(data);
+  });
+};
+const unsubscribe = docListener(); // Detach listener
+unsubscribe(); // Destroy
+
+// Listen for collection changes
+const collectionListener = (collectionRef) => {
+  collectionRef.onSnapshot((querySnapshot) => {
+    let dataArray = [];
+    querySnapshot.forEach((doc) => {
+      dataArray.push(doc.data());
+    });
+    dataArray.map((d) => console.log(d));
+  });
+};
+const unsubscribe = collectionListener(); // Detach listener
+unsubscribe(); // Destroy
+
+// Queries
+const collectionRef = firestore.collection("some-collection");
+const someQuery = collectionRef.where("some-data", "==", "awesome");
+const compoundQuery = collectionRef.where("some-value", ">=", 1).where("some-value", "<=", 10);
+const arrayQuery = collectionRef.where("some-values", "array-contains", "some-array-value");
+const collectionGroupQuery = collectionRef
+  .collectionGroup("some-data")
+  .where("type", "==", "super-awesome");
+const orderQuery = collectionRef.orderBy("createdAt", "desc".limit(100));
+const filterAndOrderQuery = collectionRef.where("some-value", ">", 5).orderBy("some-value");
+
+// Use a query to get collection docs
+const getCollectionDocs = async (collectionRef) => {
+  const collectionRef = firestore.collection(collection);
+  const collectionQuery = collectionRef.where("some-data", "==", true);
+
+  await collectionQuery.get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      console.log(data);
+    });
+  });
+};
+
+// Use a query with collection listener
+const collectionListener = (collectionRef) => {
+  const collectionRef = firestore.collection(collection);
+  const collectionQuery = collectionRef.where("some-data", "==", true);
+
+  collectionQuery.onSnapshot((querySnapshot) => {
+    let dataArray = [];
+    querySnapshot.forEach((doc) => {
+      dataArray.push(doc.data());
+    });
+    dataArray.map((d) => console.log(d));
+  });
+};
+
+// Paginate a query
+const first = collectionRef.orderBy("createdAt").limit(25);
+return first.get().then((docSnaps) => {
+  const lastVisible = docSnaps.docs[docSnaps.docs.length - 1];
+  console.log("last", lastVisible);
+
+  const next = collectionRef.orderBy("createdAt").startAfter(lastVisible).limit(25);
+});
+
 /*===================================================================//
    VERSION 9 (beta)
 //===================================================================*/
@@ -111,6 +200,7 @@ import {
   doc,
   addDoc,
   setDoc,
+  getDoc,
   updateDoc,
   collection,
   deleteDoc,
@@ -119,6 +209,15 @@ import {
   arrayRemove,
   increment,
   writeBatch,
+  query,
+  where,
+  getDocs,
+  onSnapshot,
+  orderBy,
+  limit,
+  startAt,
+  endAt,
+  startAfter,
 } from "firebase/firestore";
 
 // Collection/doc ref
@@ -218,4 +317,100 @@ const commitBatch = async () => {
   });
 };
 
-//====================================================================//
+// Get/read a document once
+const getDocData = async (collection, docId) => {
+  const docRef = doc(firestore, collection, docId);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    console.log("Document data:", doc.data());
+  }
+};
+
+// Get/read documents in a collection once
+const getCollectionDocs = async (collection) => {
+  const collectionRef = collection(firestore, collection);
+  const querySnapshot = await getDocs(collectionRef);
+
+  querySnapshot.forEach((doc) => {
+    const data = doc.data();
+    console.log(data);
+  });
+};
+
+// Listen for document changes
+const docListener = (collection, docId) => {
+  const docRef = doc(firestore, collection, docId);
+  onSnapshot(docRef, (doc) => {
+    const data = doc.data();
+    console.log(data);
+  });
+};
+const unsubscribe = docListener(); // Detach listener
+unsubscribe(); // Destroy
+
+// Listen for collection changes
+const collectionListener = (collection) => {
+  const collectionRef = collection(firestore, collection);
+  onSnapshot(collectionRef, (querySnapshot) => {
+    let dataArray = [];
+    querySnapshot.forEach((doc) => {
+      dataArray.push(doc.data());
+    });
+    dataArray.map((d) => console.log(d));
+  });
+};
+const unsubscribe = collectionListener(); // Detach listener
+unsubscribe(); // Destroy
+
+// Queries
+const collectionRef = collection(firestore, "some-collection");
+const someQuery = query(collectionRef, where("some-data", "==", "awesome"));
+const compoundQuery = query(
+  collectionRef,
+  where("some-value", ">=", 1),
+  where("some-value", "<=", 10)
+);
+const arrayQuery = query(collectionRef, where("some-values", "array-contains", "some-array-value"));
+const orderQuery = query(collectionRef, orderBy("createdAt", "desc"), limit(100));
+const filterAndOrderQuery = query(
+  collectionRef,
+  where("some-value", ">", 5),
+  orderBy("some-value")
+);
+const paginateStart = query(collectionRef, orderBy("createdAt"), startAt(25));
+const paginateEnd = query(collectionRef, orderBy("createdAt"), endAt(50));
+
+// Use a query to get collection docs
+const getCollectionDocs = async (collection) => {
+  const collectionRef = collection(firestore, collection);
+  const collectionQuery = query(collectionRef, where("some-data", "==", true));
+  const querySnapshot = await getDocs(collectionQuery);
+
+  querySnapshot.forEach((doc) => {
+    const data = doc.data();
+    console.log(data);
+  });
+};
+
+// Use a query with collection listener
+const collectionListener = (collection) => {
+  const collectionRef = collection(firestore, collection);
+  const collectionQuery = query(collectionRef, where("some-data", "==", true));
+
+  onSnapshot(collectionQuery, (querySnapshot) => {
+    let dataArray = [];
+    querySnapshot.forEach((doc) => {
+      dataArray.push(doc.data());
+    });
+    dataArray.map((d) => console.log(d));
+  });
+};
+
+// Paginate a query
+const first = query(collectionRef, orderBy("createdAt"), limit(25));
+const docSnaps = await getDocs(first);
+const lastVisible = docSnaps.docs[docSnaps.docs.length - 1];
+console.log("last", lastVisible);
+
+const next = query(collectionRef, orderBy("createdAt"), startAfter(lastVisible), limit(25));
