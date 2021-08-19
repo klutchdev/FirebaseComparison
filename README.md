@@ -26,7 +26,7 @@
       - [x] Github
       - [x] Microsoft
       - [x] Yahoo
-  - [x] Sign out
+    - [x] Sign out
   - [x] Auth state listener
   - [x] Update user
   - [x] Delete user
